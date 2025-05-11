@@ -215,7 +215,6 @@ int main() {
     case '4': buscar_por_tempo(tempo_lentas, tempo_moderadas, tempo_rapidas) ;
       break;
     }
-
     if (opcion != '5') presioneTeclaParaContinuar();
 
   } while (opcion != '5');
