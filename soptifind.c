@@ -18,17 +18,14 @@ typedef struct {
 void mostrarMenuPrincipal() {
   limpiarPantalla();
   puts("========================================");
-  puts("     Base de Datos de Películas");
+  puts("                SOPTIFIND");
   puts("========================================");
 
-  puts("1) Cargar Películas");
-  puts("2) Buscar por id");
-  puts("3) Buscar por director");
-  puts("4) Buscar por género");
-  puts("5) Buscar por década");
-  puts("6) Buscar por rango de calificaciones");
-  puts("7) Buscar por década y género");
-  puts("8) Salir");
+  puts("1) Cargar canciones");
+  puts("2) Buscar por género");
+  puts("3) Buscar por artista");
+  puts("4) Buscar por tempo");
+  puts("5) Salir");
 }
 
 /**
