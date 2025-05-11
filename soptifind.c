@@ -72,6 +72,13 @@ void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_len
     strcpy(cancion->track_genre, campos[5]) ;
 
     map_insert(by_id, cancion->id, cancion) ;
+
+    int total = 0 ;
+    while ((campos = leer_linea_csv(archivo, ',')) != NULL) {
+        total++ ;
+    } 
+    printf("Se cargaron %d canciones correctamente.\n", total) ;
+
   }
 
 
