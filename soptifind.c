@@ -119,8 +119,7 @@ void buscar_por_genero(Map *by_genre) {
   scanf(" %[^\n]", genero) ;
 
   MapPair * pair = map_search(by_genre, genero) ;
-
-
+  
   if (pair == NULL) {
     printf("No se encontraron canciones del genero '%s'.\n", genero) ; return ;
   }
