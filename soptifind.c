@@ -73,15 +73,51 @@ void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_len
 
     map_insert(by_id, cancion->id, cancion) ;
 
+    MapPair* genre_pair = map_search(by_genre, cancion->track_genre) ;
+    if (genre_pair == NULL) {
+      List * list = list_create() ;
+      list_pushBack(list, cancion) ;
+      map_insert(by_genre, cancion->track_genre, list) ;
+    } else {
+      List* list = genre_pair->value ;
+      list_pushBack(list, cancion) ;
+    }
+
+
     int total = 0 ;
     while ((campos = leer_linea_csv(archivo, ',')) != NULL) {
         total++ ;
     } 
     printf("Se cargaron %d canciones correctamente.\n", total) ;
-
   }
 
+}
 
+void mostrar_canciones(List *lista) {
+  Song* cancion = list_first(lista) ;
+  while (cancion != NULL) {
+    printf("ID: %s | Artista: %s | Álbum: %s | Canción: %s | Género: %s | Tempo: %.1f\n",
+           cancion->id, cancion->artists, cancion->album_name,
+           cancion->track_name, cancion->track_genre, cancion->tempo) ;
+    cancion = list_next(lista) ;
+  }
+}
+
+
+void buscar_por_genero(Map *by_genre) {
+  char genero[100] ;
+
+  printf("Ingrese el genero: ") ;
+  scanf(" %[^\n]", genero) ;
+
+  MapPair * pair = map_search(by_genre, genero) ;
+
+
+  if (pair == NULL) {
+    printf("No se encontraron canciones del genero '%s'.\n", genero) ; return ;
+  }
+
+  mostrar_canciones(pair->value);
 }
 
 int main() {
@@ -99,10 +135,9 @@ int main() {
     scanf(" %c", &opcion);
 
     switch (opcion) {
-    case '1':
-    cargar_canciones(by_id, by_genre, by_artist, tempo_lentas, tempo_moderadas, tempo_rapidas);
+    case '1': cargar_canciones(by_id, by_genre, by_artist, tempo_lentas, tempo_moderadas, tempo_rapidas) ;
       break;
-    case '2':
+    case '2': buscar_por_genero(by_genre) ;
       break;
     case '3':
       break;
