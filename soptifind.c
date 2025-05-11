@@ -59,6 +59,22 @@ void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_len
         "Error al abrir el archivo"); // Informa si el archivo no puede abrirse
     return;
   }
+
+  char **campos = leer_linea_csv(archivo, ',') ;
+
+  while ((campos = leer_linea_csv(archivo, ',')) != NULL) {
+    Song *cancion = malloc(sizeof(Song)) ;
+    strcpy(cancion->id, campos[0]) ;
+    strcpy(cancion->artists, campos[1]) ;
+    strcpy(cancion->album_name, campos[2]) ;
+    strcpy(cancion->track_name, campos[3]) ;
+    cancion->tempo = atof(campos[4]) ;
+    strcpy(cancion->track_genre, campos[5]) ;
+
+    map_insert(by_id, cancion->id, cancion) ;
+  }
+
+
 }
 
 int main() {
