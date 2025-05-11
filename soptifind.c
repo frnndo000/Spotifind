@@ -60,6 +60,7 @@ void mostrar_canciones(List *lista) {
            cancion->track_name, cancion->track_genre, cancion->tempo) ;
     cancion = list_next(lista) ;
   }
+  printf("Se encontraron %d canciones.\n\n", list_size(lista));
 }
 
 void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_lentas, List *tempo_moderadas, List *tempo_rapidas) {
@@ -132,7 +133,8 @@ void buscar_por_genero(Map *by_genre) {
     printf("No se encontraron canciones del genero '%s'.\n", genero) ; return ;
   }
 
-  mostrar_canciones(pair->value);
+  List *lista = pair->value ;
+  mostrar_canciones(lista) ;
 }
 
 void buscar_por_artista(Map *by_artist) {
@@ -148,7 +150,8 @@ void buscar_por_artista(Map *by_artist) {
     return ;
   }
 
-  mostrar_canciones(pair->value);
+  List *lista = pair->value ;
+  mostrar_canciones(lista) ;
 }
 
 void buscar_por_tempo(List *lentas, List *moderadas, List *rapidas) {
