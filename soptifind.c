@@ -97,26 +97,6 @@ void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_len
       list_pushBack(list, cancion) ;
     }
 
-    char* artista = strtok(cancion->artists, ";") ;
-    while (artista != NULL) {
-      while (*artista == ' ') artista++ ;
-      char *fin = artista + strlen(artista) - 1 ;
-      while (fin > artista && *fin == ' ') *fin-- = '\0' ;
-
-      MapPair* artist_pair = map_search(by_artist, artista) ;
-      if (artist_pair == NULL) {
-        List* list = list_create() ;
-        list_pushBack(list, cancion) ;
-        map_insert(by_artist, artista, list) ;
-      } else {
-        List* list = artist_pair->value ;
-        list_pushBack(list, cancion) ;
-      }
-
-      artista = strtok(NULL, ";") ;
-    }
-    
-
     MapPair* artist_pair = map_search(by_artist, cancion->artists) ;
     if (artist_pair == NULL) {
       List* list = list_create() ;
@@ -235,6 +215,7 @@ int main() {
     case '4': buscar_por_tempo(tempo_lentas, tempo_moderadas, tempo_rapidas) ;
       break;
     }
+
     if (opcion != '5') presioneTeclaParaContinuar();
 
   } while (opcion != '5');
