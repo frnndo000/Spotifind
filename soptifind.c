@@ -55,7 +55,7 @@ int is_equal_int(void *key1, void *key2) {
 void mostrar_canciones(List *lista) {
   Song* cancion = list_first(lista) ;
   while (cancion != NULL) {
-    printf("ID: %s | Artista: %s | Álbum: %s | Canción: %s | Género: %s | Tempo: %.1f\n",
+    printf("ID: %s | Artista: %s | Album: %s | Cancion: %s | Genero: %s | Tempo: %.1f\n",
            cancion->id, cancion->artists, cancion->album_name,
            cancion->track_name, cancion->track_genre, cancion->tempo) ;
     cancion = list_next(lista) ;
@@ -106,8 +106,16 @@ void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_len
       List* list = artist_pair->value ;
       list_pushBack(list, cancion) ;
     }
-  }
 
+    if (cancion->tempo < 70.0f) {
+      list_pushBack(tempo_lentas, cancion) ;
+    } 
+    else if (cancion->tempo <= 110.0f) {
+      list_pushBack(tempo_moderadas, cancion) ;
+    } else {
+      list_pushBack(tempo_rapidas, cancion) ;
+    }
+  }
   printf("Se cargaron %d canciones correctamente.\n", total) ;
   fclose(archivo) ;
 }
@@ -119,7 +127,7 @@ void buscar_por_genero(Map *by_genre) {
   scanf(" %[^\n]", genero) ;
 
   MapPair * pair = map_search(by_genre, genero) ;
-  
+
   if (pair == NULL) {
     printf("No se encontraron canciones del genero '%s'.\n", genero) ; return ;
   }
@@ -143,6 +151,46 @@ void buscar_por_artista(Map *by_artist) {
   mostrar_canciones(pair->value);
 }
 
+void buscar_por_tempo(List *lentas, List *moderadas, List *rapidas) {
+  puts("Seleccione un rango de tempo:") ;
+  puts("1) Lentas (menos de 70 BPM)") ;
+  puts("2) Moderadas (entre 70 y 110 BPM)") ;
+  puts("3) Rapidas (mas de 110 BPM)") ;
+  
+  char opcion ;
+  scanf(" %c", &opcion) ;
+
+  switch (opcion) {
+    case '1':
+      if (list_size(lentas) == 0) {
+        printf("No hay canciones lentas registradas.\n") ;
+        return ;
+      }
+
+      mostrar_canciones(lentas) ;
+      break ;
+    case '2':
+      if (list_size(moderadas) == 0) {
+        printf("No hay canciones moderadas registradas.\n") ;
+        return ;
+      }
+
+      mostrar_canciones(moderadas); 
+      break;
+    case '3':
+      if (list_size(rapidas) == 0) {
+        printf("No hay canciones rapidas registradas.\n") ;
+        return ;
+      }
+
+      mostrar_canciones(rapidas) ;
+      break ;
+    default: printf("Opcion invalida.\n") ;
+      break;
+  }
+}
+
+
 int main() {
   Map* by_id = map_create(is_equal_str);
   Map* by_genre = map_create(is_equal_str);
@@ -164,7 +212,7 @@ int main() {
       break;
     case '3': buscar_por_artista(by_artist) ;
       break;
-    case '4':
+    case '4': buscar_por_tempo(tempo_lentas, tempo_moderadas, tempo_rapidas) ;
       break;
     }
 
