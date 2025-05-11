@@ -60,16 +60,19 @@ void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_len
     return;
   }
 
+  int total = 0 ;
   char **campos = leer_linea_csv(archivo, ',') ;
 
   while ((campos = leer_linea_csv(archivo, ',')) != NULL) {
+    total++ ;  
+    if (total>999) break ;
     Song *cancion = malloc(sizeof(Song)) ;
     strcpy(cancion->id, campos[0]) ;
-    strcpy(cancion->artists, campos[1]) ;
-    strcpy(cancion->album_name, campos[2]) ;
-    strcpy(cancion->track_name, campos[3]) ;
-    cancion->tempo = atof(campos[4]) ;
-    strcpy(cancion->track_genre, campos[5]) ;
+    strcpy(cancion->artists, campos[2]) ;
+    strcpy(cancion->album_name, campos[3]) ;
+    strcpy(cancion->track_name, campos[4]) ;
+    cancion->tempo = atof(campos[18]) ;
+    strcpy(cancion->track_genre, campos[20]) ;
 
     map_insert(by_id, cancion->id, cancion) ;
 
@@ -83,14 +86,11 @@ void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_len
       list_pushBack(list, cancion) ;
     }
 
-
-    int total = 0 ;
-    while ((campos = leer_linea_csv(archivo, ',')) != NULL) {
-        total++ ;
-    } 
-    printf("Se cargaron %d canciones correctamente.\n", total) ;
+    total++ ;
   }
 
+  printf("Se cargaron %d canciones correctamente.\n", total) ;
+  fclose(archivo) ;
 }
 
 void mostrar_canciones(List *lista) {
