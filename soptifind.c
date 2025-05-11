@@ -22,7 +22,7 @@ void mostrarMenuPrincipal() {
   puts("========================================");
 
   puts("1) Cargar canciones");
-  puts("2) Buscar por género");
+  puts("2) Buscar por genero");
   puts("3) Buscar por artista");
   puts("4) Buscar por tempo");
   puts("5) Salir");
@@ -53,7 +53,7 @@ int is_equal_int(void *key1, void *key2) {
 }
 
 void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_lentas, List *tempo_moderadas, List *tempo_rapidas) {
-  FILE *archivo = fopen("data/song_dataset_.csv", "r");
+  FILE *archivo = fopen("song_dataset_.csv", "r");
   if (archivo == NULL) {
     perror(
         "Error al abrir el archivo"); // Informa si el archivo no puede abrirse
@@ -88,7 +88,7 @@ int main() {
   char opcion;
   do {
     mostrarMenuPrincipal();
-    printf("Ingrese su opción: ");
+    printf("Ingrese su opcion: ");
     scanf(" %c", &opcion);
 
     switch (opcion) {
