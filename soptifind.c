@@ -75,7 +75,7 @@ void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_len
 
   while ((campos = leer_linea_csv(archivo, ',')) != NULL) {
     total++ ;  
-    if (total>999) break ;
+    if (total>10000) break ;
 
     Song *cancion = malloc(sizeof(Song)) ;
     strcpy(cancion->id, campos[0]) ;
@@ -96,6 +96,26 @@ void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_len
       List* list = genre_pair->value ;
       list_pushBack(list, cancion) ;
     }
+
+    char* artista = strtok(cancion->artists, ";") ;
+    while (artista != NULL) {
+      while (*artista == ' ') artista++ ;
+      char *fin = artista + strlen(artista) - 1 ;
+      while (fin > artista && *fin == ' ') *fin-- = '\0' ;
+
+      MapPair* artist_pair = map_search(by_artist, artista) ;
+      if (artist_pair == NULL) {
+        List* list = list_create() ;
+        list_pushBack(list, cancion) ;
+        map_insert(by_artist, artista, list) ;
+      } else {
+        List* list = artist_pair->value ;
+        list_pushBack(list, cancion) ;
+      }
+
+      artista = strtok(NULL, ";") ;
+    }
+    
 
     MapPair* artist_pair = map_search(by_artist, cancion->artists) ;
     if (artist_pair == NULL) {
