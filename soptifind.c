@@ -52,18 +52,15 @@ int is_equal_int(void *key1, void *key2) {
   return *(int *)key1 == *(int *)key2; // Compara valores enteros directamente
 }
 
-/**
- * Carga películas desde un archivo CSV y las almacena en un mapa por ID.
- */
-void cargar_peliculas(Map *pelis_byid, Map *pelis_bygenres) {
+void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_lentas, List *tempo_moderadas, List *tempo_rapidas) {
   // Intenta abrir el archivo CSV que contiene datos de películas
-  FILE *archivo = fopen("data/Top1500.csv", "r");
+  FILE *archivo = fopen("song_dataset_.csv", "r");
   if (archivo == NULL) {
     perror(
         "Error al abrir el archivo"); // Informa si el archivo no puede abrirse
     return;
   }
-
+  /*
   char **campos;
   // Leer y parsear una línea del archivo CSV. La función devuelve un array de
   // strings, donde cada elemento representa un campo de la línea CSV procesada.
@@ -126,7 +123,7 @@ void cargar_peliculas(Map *pelis_byid, Map *pelis_bygenres) {
     printf("\n");
     
     pair = map_next(pelis_byid); // Avanza al siguiente par en el mapa
-  }
+  } */
 }
 
 /**
@@ -177,16 +174,14 @@ void buscar_por_genero(Map *pelis_bygenres) {
 }
 
 int main() {
-  char opcion; // Variable para almacenar una opción ingresada por el usuario
-               // (sin uso en este fragmento)
+  Map* by_id = map_create(is_equal_str);
+  Map* by_genre = map_create(is_equal_str);
+  Map* by_artist = map_create(is_equal_str);
+  List* tempo_lentas = list_create();
+  List* tempo_moderadas = list_create();
+  List* tempo_rapidas = list_create();
 
-  // Crea un mapa para almacenar películas, utilizando una función de
-  // comparación que trabaja con claves de tipo string.
-  Map *pelis_byid = map_create(is_equal_str);
-  Map *pelis_bygenres = map_create(is_equal_str);
-
-  // Recuerda usar un mapa por criterio de búsqueda
-
+  char opcion;
   do {
     mostrarMenuPrincipal();
     printf("Ingrese su opción: ");
@@ -194,26 +189,19 @@ int main() {
 
     switch (opcion) {
     case '1':
-      cargar_peliculas(pelis_byid, pelis_bygenres);
+    cargar_canciones(by_id, by_genre, by_artist, tempo_lentas, tempo_moderadas, tempo_rapidas);
       break;
     case '2':
-      buscar_por_id(pelis_byid);
       break;
     case '3':
       break;
     case '4':
-      buscar_por_genero(pelis_bygenres);
-      break;
-    case '5':
-      break;
-    case '6':
-      break;
-    case '7':
       break;
     }
-    presioneTeclaParaContinuar();
 
-  } while (opcion != '8');
+    if (opcion != '5') presioneTeclaParaContinuar();
+
+  } while (opcion != '5');
 
   return 0;
 }
