@@ -124,7 +124,7 @@ void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_len
 void buscar_por_genero(Map *by_genre) {
   char genero[100] ;
 
-  printf("Ingrese el genero: ") ;
+  printf("Ingrese el genero (acoustic, samba, soul, anime, etc): ") ;
   scanf(" %[^\n]", genero) ;
 
   MapPair * pair = map_search(by_genre, genero) ;
@@ -219,8 +219,7 @@ int main() {
       break;
     }
 
-    if (opcion != '5') presioneTeclaParaContinuar();
-
+    if (opcion != '5') presioneTeclaParaContinuar() ;
   } while (opcion != '5');
 
   return 0;
