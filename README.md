@@ -22,5 +22,29 @@
 - Instalar la extensión **C/C++ (Microsoft)**.
 - Tener instalado un compilador de C (como `gcc`).  
   En Windows se recomienda instalar [MinGW].
+- En caso de falla, puedes descargar la base de datos desde aqui: https://drive.google.com/file/d/1zdgxHMaXpqgYaBrtNRUUAN56AN5rRGEy/view
+---
+
+### Pasos para compilar y ejecutar:
+
+1. **Descarga el proyecto** y descomprímelo en una carpeta en tu computador.
+
+2. **Abre el proyecto en Visual Studio Code:**
+   - Ve a `Archivo > Abrir carpeta...` y selecciona la carpeta del proyecto.
+
+3. **Compila el código:**
+   - Abre el archivo principal `soptifind.c`.
+   - Abre la terminal integrada (`Terminal > Nueva terminal`).
+   - Escribe el siguiente comando para compilar:
+
+     ```
+     gcc tdas/*.c soptifind.c -Wno-unused-result -o soptifind
+     ```
+
+4. **Ejecuta el programa:**
+
+   ```
+   ./soptifind
+   ```
 
 ---
