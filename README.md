@@ -94,7 +94,7 @@ Se mostrará la lista de canciones con la cantidad correspondiente al rango.
 
 ---
 
-## ⚠️ Posibles errores
+## Posibles errores
 
 - **Archivo CSV no encontrado:** Asegúrate de tener `song_dataset_.csv` en el mismo directorio.
 - **Errores de compilación:** Verifica que todos los archivos en la carpeta `tdas` estén presentes y correctamente enlazados.
