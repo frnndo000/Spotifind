@@ -48,3 +48,57 @@
    ```
 
 ---
+
+## Menú principal del programa
+
+```
+========================================
+                SOPTIFIND
+========================================
+
+1) Cargar canciones
+2) Buscar por genero
+3) Buscar por artista
+4) Buscar por tempo
+5) Salir
+```
+
+---
+
+## Ejemplo de uso
+
+### Cargar canciones
+
+Selecciona la opción `1`. El programa cargará las primeras 10.000 canciones del archivo `song_dataset_.csv`, clasificándolas por ID, género, artista y tempo.
+
+### Buscar por género
+
+Selecciona la opción `2` e ingresa un género musical como "acoustic" o "pop".  
+El programa mostrará todas las canciones coincidentes y cuántas hay.
+
+### Buscar por artista
+
+Selecciona la opción `3` e ingresa el nombre exacto del artista.  
+Si una canción tiene varios artistas, será registrada para cada uno individualmente.
+
+
+### Buscar por tempo
+
+Selecciona la opción `4` y elige el rango de tempo:
+
+- `1` → Canciones lentas (menos de 70 BPM)
+- `2` → Canciones moderadas (entre 70 y 110 BPM)
+- `3` → Canciones rápidas (más de 110 BPM)
+
+Se mostrará la lista de canciones con la cantidad correspondiente al rango.
+
+---
+
+## ⚠️ Posibles errores
+
+- **Archivo CSV no encontrado:** Asegúrate de tener `song_dataset_.csv` en el mismo directorio.
+- **Errores de compilación:** Verifica que todos los archivos en la carpeta `tdas` estén presentes y correctamente enlazados.
+- **Entradas inválidas del usuario:** El sistema espera entradas correctas, no ingresar géneros o artistas inexistentes podria causar un mal funcionamiento del programa.
+- **Lectura de canciones con mas de un artista:** Al buscar una cancion donde haya mas de un artista, el programa solo considera el primero, complicando su busqueda. 
+
+---

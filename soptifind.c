@@ -87,7 +87,7 @@ void cargar_canciones(Map *by_id, Map *by_genre, Map *by_artist, List *tempo_len
     strcpy(cancion->track_genre, campos[20]) ;
 
     map_insert(by_id, cancion->id, cancion) ;
-
+    
     MapPair* genre_pair = map_search(by_genre, cancion->track_genre) ;
     if (genre_pair == NULL) {
       List * list = list_create() ;
